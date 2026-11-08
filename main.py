@@ -11,8 +11,8 @@ car_image = pygame.transform.rotate(car_image, -90)
 car_image = pygame.transform.scale(car_image, (50, 25))
 
 # car coordinates
-x = 375
-y = 287.5
+x = 400
+y = 300
 
 angle = 90
 speed = 3
@@ -37,8 +37,11 @@ while running:
 
     screen.fill((255, 255, 255))
 
-    # car represented by a rectangle
-    screen.blit(car_image, (x, y))
+    rotated_image = pygame.transform.rotate(car_image, angle)
+    rotated_rect = rotated_image.get_rect(center=(x, y))
+
+    # car image
+    screen.blit(rotated_image, rotated_rect)
 
     pygame.display.flip()
     clock.tick(60)
