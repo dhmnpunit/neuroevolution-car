@@ -76,7 +76,9 @@ while running:
     screen.blit(rotated_image, rotated_rect)
 
     # yellow raycasting line    
-    for offset in [90, 25, 0, -45, -90]:
+    distances = []
+
+    for offset in [90, 45, 0, -45, -90]:
         d = 0
 
         while d < 200:
@@ -87,6 +89,8 @@ while running:
             if track_color == (60, 150, 60, 255):
                 break
             d += 1
+
+        distances.append(d/ 200)
 
         pygame.draw.line(screen, (255, 255, 0), (x, y), (ray_x, ray_y), 2)
 
