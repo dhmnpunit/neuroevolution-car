@@ -24,6 +24,7 @@ y = START_Y
 
 next_checkpoint = 0
 score = 0
+laps = 0
 
 START_ANGLE = 90
 angle = START_ANGLE
@@ -31,7 +32,8 @@ speed = 0
 acceleration = 0.06
 
 
-CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 410), (300, 515), (140, 460), (120, 300)]
+CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 435), (300, 515), (140, 460), (120, 300)]
+CHECKPOINT_RADIUS = 70
 
 running = True
 while running:
@@ -83,9 +85,16 @@ while running:
     point = CHECKPOINTS[next_checkpoint]
     distance = math.dist((x, y), point)
 
-    if distance < 55:
+    if distance < CHECKPOINT_RADIUS:
         next_checkpoint += 1
+
+        if next_checkpoint == len(CHECKPOINTS):
+            laps += 1
+            next_checkpoint = 0
+
         score += 1
+
+        print(score)
 
     ###################
     ## DRAWING
@@ -99,7 +108,7 @@ while running:
 
     # checkpoints 
     for checkpoints in CHECKPOINTS:
-        pygame.draw.circle(screen, (0, 150, 255), checkpoints, 55, 2)
+        pygame.draw.circle(screen, (0, 150, 255), checkpoints, CHECKPOINT_RADIUS, 2)
 
     # yellow raycasting line    
     distances = []
