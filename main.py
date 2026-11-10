@@ -14,6 +14,7 @@ car_image = pygame.transform.scale(car_image, (50, 25))
 
 # track image
 track = pygame.image.load("assets/track1.png").convert()
+grass_mask = pygame.mask.from_threshold(track, (60, 150, 60, 255), (1, 1, 1, 255))
 
 # car coordinates
 START_X = 120
@@ -21,9 +22,11 @@ START_Y = 300
 x = START_X
 y = START_Y
 
-angle = 90
+
+START_ANGLE = 90
+angle = START_ANGLE
 speed = 0
-acceleration = 0.08
+acceleration = 0.06
 
 running = True
 while running:
@@ -49,24 +52,25 @@ while running:
 
     # rotation
     if keys[pygame.K_LEFT]:
-        angle += 3
+        angle += 2
     if keys[pygame.K_RIGHT]:
-        angle -= 3
-
-    # crash detection and reset position
-    color = track.get_at((int(x), int(y)))
-    if color == (60, 150, 60, 255):
-        x = START_X
-        y = START_Y
-        angle = 90
-        speed = 0
-
-    # track 
-    screen.blit(track, (0, 0))
+        angle -= 2
 
     # car rotation
     rotated_image = pygame.transform.rotate(car_image, angle)
     rotated_rect = rotated_image.get_rect(center=(x, y))
+
+    car_mask = pygame.mask.from_surface(rotated_image)
+
+    # crash detection and reset position
+    if grass_mask.overlap(car_mask, (rotated_rect.x, rotated_rect.y)):
+        x = START_X
+        y = START_Y
+        angle = START_ANGLE
+        speed = 0
+
+    # track 
+    screen.blit(track, (0, 0))
 
     # car image
     screen.blit(rotated_image, rotated_rect)
