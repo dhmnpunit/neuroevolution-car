@@ -62,10 +62,10 @@ Done when:
 
 **Goal:** the car drives on a track and crashes into walls.
 **Learn:** loading images, pixel colors, collision detection.
-**Research:** `Surface.get_at`, `pygame.mask`, "pixel perfect collision pygame". Draw your first track in any paint app.
+**Research:** `Surface.get_at`, `pygame.mask`, "pixel perfect collision pygame". Tracks are generated images: two flat colors, 800 × 600.
 
 Done when:
-- [ ] the track is loaded from an image you drew
+- [ ] the track is loaded from an image
 - [ ] touching a wall crashes the car (stops or resets it) every time
 - [ ] driving on the road never triggers a crash
 - [ ] the crash check uses the car's corners or shape, not only its center

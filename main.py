@@ -6,17 +6,22 @@ screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Self Driving Car AI")
 
 clock = pygame.time.Clock()
+
+# car image
 car_image = pygame.image.load("assets/car_red.png").convert_alpha()
 car_image = pygame.transform.rotate(car_image, -90)
 car_image = pygame.transform.scale(car_image, (50, 25))
 
+# track image
+track = pygame.image.load("assets/track1.png").convert()
+
 # car coordinates
-x = 400
+x = 120
 y = 300
 
 angle = 90
 speed = 0
-acceleration = 0.1
+acceleration = 0.08
 
 running = True
 while running:
@@ -43,7 +48,7 @@ while running:
         angle -= 3
 
 
-    screen.fill((255, 255, 255))
+    screen.blit(track, (0, 0))
 
     rotated_image = pygame.transform.rotate(car_image, angle)
     rotated_rect = rotated_image.get_rect(center=(x, y))
