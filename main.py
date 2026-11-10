@@ -16,8 +16,10 @@ car_image = pygame.transform.scale(car_image, (50, 25))
 track = pygame.image.load("assets/track1.png").convert()
 
 # car coordinates
-x = 120
-y = 300
+START_X = 120
+START_Y = 300 
+x = START_X
+y = START_Y
 
 angle = 90
 speed = 0
@@ -51,10 +53,13 @@ while running:
     if keys[pygame.K_RIGHT]:
         angle -= 3
 
-    # crash detection
+    # crash detection and reset position
     color = track.get_at((int(x), int(y)))
     if color == (60, 150, 60, 255):
-        print("crash")
+        x = START_X
+        y = START_Y
+        angle = 90
+        speed = 0
 
     # track 
     screen.blit(track, (0, 0))
