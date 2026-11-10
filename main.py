@@ -15,7 +15,8 @@ x = 400
 y = 300
 
 angle = 90
-speed = 3
+speed = 0
+acceleration = 0.1
 
 running = True
 while running:
@@ -27,8 +28,15 @@ while running:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_UP]:
-        x += speed * math.cos(math.radians(angle))
-        y -= speed * math.sin(math.radians(angle))
+        speed += acceleration
+    if keys[pygame.K_DOWN]:
+        speed -= acceleration
+
+    x += speed * math.cos(math.radians(angle))
+    y -= speed * math.sin(math.radians(angle))
+
+    speed *= 0.98
+
     if keys[pygame.K_LEFT]:
         angle += 3
     if keys[pygame.K_RIGHT]:
