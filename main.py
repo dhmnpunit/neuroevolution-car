@@ -32,24 +32,34 @@ while running:
 
     keys = pygame.key.get_pressed()
 
+    # acceleration and deceleration
     if keys[pygame.K_UP]:
         speed += acceleration
     if keys[pygame.K_DOWN]:
         speed -= acceleration
 
+    # movement
     x += speed * math.cos(math.radians(angle))
     y -= speed * math.sin(math.radians(angle))
 
+    # friction
     speed *= 0.98
 
+    # rotation
     if keys[pygame.K_LEFT]:
         angle += 3
     if keys[pygame.K_RIGHT]:
         angle -= 3
 
+    # crash detection
+    color = track.get_at((int(x), int(y)))
+    if color == (60, 150, 60, 255):
+        print("crash")
 
+    # track 
     screen.blit(track, (0, 0))
 
+    # car rotation
     rotated_image = pygame.transform.rotate(car_image, angle)
     rotated_rect = rotated_image.get_rect(center=(x, y))
 
