@@ -75,6 +75,21 @@ while running:
     # car image
     screen.blit(rotated_image, rotated_rect)
 
+    # yellow raycasting line    
+    for offset in [90, 25, 0, -45, -90]:
+        d = 0
+
+        while d < 200:
+            ray_x = x + d * math.cos(math.radians(angle + offset))
+            ray_y = y - d * math.sin(math.radians(angle + offset))
+
+            track_color = track.get_at((int(ray_x), int(ray_y)))
+            if track_color == (60, 150, 60, 255):
+                break
+            d += 1
+
+        pygame.draw.line(screen, (255, 255, 0), (x, y), (ray_x, ray_y), 2)
+
     pygame.display.flip()
     clock.tick(60)
 
