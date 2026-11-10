@@ -22,11 +22,16 @@ START_Y = 300
 x = START_X
 y = START_Y
 
+next_checkpoint = 0
+score = 0
 
 START_ANGLE = 90
 angle = START_ANGLE
 speed = 0
 acceleration = 0.06
+
+
+CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 410), (300, 515), (140, 460), (120, 300)]
 
 running = True
 while running:
@@ -34,6 +39,10 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    ###################
+    ## LOGIC
+    ###################
 
     keys = pygame.key.get_pressed()
 
@@ -68,12 +77,29 @@ while running:
         y = START_Y
         angle = START_ANGLE
         speed = 0
+        next_checkpoint = 0
+        score = 0
+
+    point = CHECKPOINTS[next_checkpoint]
+    distance = math.dist((x, y), point)
+
+    if distance < 55:
+        next_checkpoint += 1
+        score += 1
+
+    ###################
+    ## DRAWING
+    ###################
 
     # track 
     screen.blit(track, (0, 0))
 
     # car image
     screen.blit(rotated_image, rotated_rect)
+
+    # checkpoints 
+    for checkpoints in CHECKPOINTS:
+        pygame.draw.circle(screen, (0, 150, 255), checkpoints, 55, 2)
 
     # yellow raycasting line    
     distances = []
