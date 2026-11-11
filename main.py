@@ -27,6 +27,9 @@ next_checkpoint = 0
 score = 0
 laps = 0
 
+distances = [1, 1, 1, 1, 1]
+STEER_WEIGHTS = [-0.2, -0.3, 0, 0.25, 0.3]
+
 START_ANGLE = 90
 angle = START_ANGLE
 speed = 0
@@ -62,11 +65,15 @@ while running:
     # friction
     speed *= 0.98
 
-    # rotation
-    if keys[pygame.K_LEFT]:
-        angle += 2
-    if keys[pygame.K_RIGHT]:
-        angle -= 2
+    # steering brain
+    steer = neuron(distances, STEER_WEIGHTS, 0)
+    angle -= steer * 2
+
+    # # rotation
+    # if keys[pygame.K_LEFT]:
+    #     angle += 2
+    # if keys[pygame.K_RIGHT]:
+    #     angle -= 2
 
     # car rotation
     rotated_image = pygame.transform.rotate(car_image, angle)
