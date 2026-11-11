@@ -1,5 +1,6 @@
 import pygame
 import math
+from brain import neuron
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
