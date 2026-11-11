@@ -29,6 +29,7 @@ laps = 0
 
 distances = [1, 1, 1, 1, 1]
 STEER_WEIGHTS = [-0.2, -0.3, 0, 0.25, 0.3]
+GAS_WEIGHTS = [0.2, 0.3, 0.8, 0.25, 0.3]
 
 START_ANGLE = 90
 angle = START_ANGLE
@@ -52,11 +53,9 @@ while running:
 
     keys = pygame.key.get_pressed()
 
-    # acceleration and deceleration
-    if keys[pygame.K_UP]:
-        speed += acceleration
-    if keys[pygame.K_DOWN]:
-        speed -= acceleration
+    # acceleration brain 
+    gas = neuron(distances, GAS_WEIGHTS, 0)
+    speed += gas * acceleration
 
     # movement
     x += speed * math.cos(math.radians(angle))
@@ -68,12 +67,6 @@ while running:
     # steering brain
     steer = neuron(distances, STEER_WEIGHTS, 0)
     angle -= steer * 2
-
-    # # rotation
-    # if keys[pygame.K_LEFT]:
-    #     angle += 2
-    # if keys[pygame.K_RIGHT]:
-    #     angle -= 2
 
     # car rotation
     rotated_image = pygame.transform.rotate(car_image, angle)
