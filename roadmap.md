@@ -41,10 +41,10 @@ The "2 of 3" number may change **once**, at M8, if results show it's unrealistic
 **Research:** virtual environments (`python -m venv`) and why we use them.
 
 Done when:
-- [ ] git repo and venv created, pygame and numpy installed
-- [ ] `.gitignore` excludes the venv
-- [ ] a pygame window opens and closes cleanly
-- [ ] first commit
+- [x] git repo and venv created, pygame and numpy installed
+- [x] `.gitignore` excludes the venv
+- [x] a pygame window opens and closes cleanly
+- [x] first commit
 
 ### M1: A car you can drive
 
@@ -53,10 +53,10 @@ Done when:
 **Research:** "how sin and cos turn an angle into x and y movement", `pygame.transform.rotate`, "fixed timestep game loop".
 
 Done when:
-- [ ] the car turns smoothly and its image rotates with it
-- [ ] it has acceleration, friction and a max speed
-- [ ] each update moves the car by a fixed step, not by real elapsed time (needed later to train faster than real time)
-- [ ] you can explain which of sin and cos drives x and which drives y in your setup, and why
+- [x] the car turns smoothly and its image rotates with it
+- [x] it has acceleration, friction and a max speed
+- [x] each update moves the car by a fixed step, not by real elapsed time (needed later to train faster than real time)
+- [x] you can explain which of sin and cos drives x and which drives y in your setup, and why
 
 ### M2: Track and crashes
 
@@ -65,10 +65,10 @@ Done when:
 **Research:** `Surface.get_at`, `pygame.mask`, "pixel perfect collision pygame". Tracks are generated images: two flat colors, 800 × 600.
 
 Done when:
-- [ ] the track is loaded from an image
-- [ ] touching a wall crashes the car (stops or resets it) every time
-- [ ] driving on the road never triggers a crash
-- [ ] the crash check uses the car's corners or shape, not only its center
+- [x] the track is loaded from an image
+- [x] touching a wall crashes the car (stops or resets it) every time
+- [x] driving on the road never triggers a crash
+- [x] the crash check uses the car's corners or shape, not only its center
 
 ### M3: Eyes (raycasts)
 
@@ -77,10 +77,10 @@ Done when:
 **Research:** "2D raycasting", "ray marching vs line intersection", "why normalize neural network inputs".
 
 Done when:
-- [ ] 5 rays are drawn from the car at fixed angles relative to its heading, and they stop at walls
-- [ ] each ray returns a distance, capped at a max length
-- [ ] distances print as numbers from 0 to 1 and match what you see on screen
-- [ ] the rays turn with the car
+- [x] 5 rays are drawn from the car at fixed angles relative to its heading, and they stop at walls
+- [x] each ray returns a distance, capped at a max length
+- [x] distances print as numbers from 0 to 1 and match what you see on screen
+- [x] the rays turn with the car
 
 ### M4: Progress score
 
@@ -89,11 +89,11 @@ Done when:
 **Research:** "checkpoints in racing games". Then think: why can't fitness just be "distance driven"?
 
 Done when:
-- [ ] checkpoints (gates) are placed along the track in order
-- [ ] the score goes up only when the car passes the next checkpoint in order
-- [ ] driving backwards or spinning in circles doesn't raise the score
-- [ ] a full lap is detected
-- [ ] you can answer the "why not distance driven" question
+- [x] checkpoints (gates) are placed along the track in order
+- [x] the score goes up only when the car passes the next checkpoint in order
+- [x] driving backwards or spinning in circles doesn't raise the score
+- [x] a full lap is detected
+- [x] you can answer the "why not distance driven" question
 
 ### M5: A brain (neural network from scratch)
 

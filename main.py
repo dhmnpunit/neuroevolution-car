@@ -81,16 +81,19 @@ while running:
         speed = 0
         next_checkpoint = 0
         score = 0
+        laps = 0
 
     point = CHECKPOINTS[next_checkpoint]
     distance = math.dist((x, y), point)
 
+    # checkpoint detection and score/laps count 
     if distance < CHECKPOINT_RADIUS:
         next_checkpoint += 1
 
         if next_checkpoint == len(CHECKPOINTS):
             laps += 1
             next_checkpoint = 0
+            print("laps: " + str(laps))
 
         score += 1
 
