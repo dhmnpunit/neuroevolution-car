@@ -28,7 +28,7 @@ score = 0
 laps = 0
 
 distances = [1, 1, 1, 1, 1]
-STEER_WEIGHTS = [-0.2, -0.3, 0, 0.25, 0.3]
+STEER_WEIGHTS = [-1, -1.5, 0, 1.25, 1.5]
 GAS_WEIGHTS = [0.2, 0.3, 0.8, 0.25, 0.3]
 
 START_ANGLE = 90
