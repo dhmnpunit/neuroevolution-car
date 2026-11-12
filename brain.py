@@ -15,3 +15,15 @@ def create_brain():
     }
 
     return brain
+
+def think(brain, rays):
+
+    W1 = brain["W1"]
+    b1 = brain["b1"]
+    W2 = brain["W2"]
+    b2 = brain["b2"]
+
+    hidden = np.tanh(W1 @ rays + b1)
+    output = np.tanh(W2 @ hidden + b2)
+
+    return output
