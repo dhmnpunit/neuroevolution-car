@@ -1,11 +1,17 @@
 import numpy as np
 
-def neuron(inputs, weights, bias):
-    i = np.array(inputs)
-    w = np.array(weights)
-    m = i * w
+def create_brain():
+    W1 = np.random.uniform(-1, 1, (8, 5))
+    b1 = np.random.uniform(-1, 1, 8)
 
-    total = np.sum(m) + bias
-    result = np.tanh(total)
+    W2 = np.random.uniform(-1, 1, (2, 8))
+    b2 = np.random.uniform(-1, 1, 2)
 
-    return result
+    brain = {
+        "W1": W1,
+        "b1": b1,
+        "W2": W2,
+        "b2": b2
+    }
+
+    return brain
