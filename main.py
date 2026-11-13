@@ -28,8 +28,6 @@ score = 0
 laps = 0
 
 distances = [1, 1, 1, 1, 1]
-STEER_WEIGHTS = [-1, -1.5, 0, 1.25, 1.5]
-GAS_WEIGHTS = [0.2, 0.3, 0.8, 0.25, 0.3]
 
 START_ANGLE = 90
 angle = START_ANGLE
@@ -39,6 +37,9 @@ acceleration = 0.06
 
 CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 435), (300, 515), (140, 460), (120, 300)]
 CHECKPOINT_RADIUS = 70
+
+# brain 
+brain = create_brain()
 
 running = True
 while running:
@@ -53,20 +54,20 @@ while running:
 
     keys = pygame.key.get_pressed()
 
-    # acceleration brain 
-    gas = neuron(distances, GAS_WEIGHTS, 0)
+    # thinking and getting output 
+    output = think(brain, distances)
+    gas = output[1]
+    steer = output[0]
+
     speed += gas * acceleration
+    angle -= steer * 2
 
     # movement
     x += speed * math.cos(math.radians(angle))
     y -= speed * math.sin(math.radians(angle))
 
     # friction
-    speed *= 0.98
-
-    # steering brain
-    steer = neuron(distances, STEER_WEIGHTS, 0)
-    angle -= steer * 2
+    speed *= 0.98    
 
     # car rotation
     rotated_image = pygame.transform.rotate(car_image, angle)

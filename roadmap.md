@@ -102,10 +102,10 @@ Done when:
 **Research:** 3Blue1Brown's "But what is a neural network?", `np.dot` and `@`, `np.tanh`.
 
 Done when:
-- [ ] the network takes the ray distances as input (plus speed, if you want)
-- [ ] it outputs steering and throttle
-- [ ] the weights start random, and the car drives with no keyboard
-- [ ] you can explain the shape of every weight matrix and why it has that shape
+- [x] the network takes the ray distances as input (plus speed, if you want)
+- [x] it outputs steering and throttle
+- [x] the weights start random, and the car drives with no keyboard
+- [x] you can explain the shape of every weight matrix and why it has that shape
 
 ### M6: A population
 
