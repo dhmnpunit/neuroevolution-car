@@ -1,14 +1,18 @@
 import pygame
 import random
+import json
 from car import Car
 from brain import mutate, crossover
 import matplotlib.pyplot as plt
 
 pygame.init()
-screen = pygame.display.set_mode((800, 600))
+screen = pygame.display.set_mode((1200, 800))
 pygame.display.set_caption("Self Driving Car AI")
 
 clock = pygame.time.Clock()
+
+tracks = json.load(open("assets/tracks/tracks.json"))
+track1 = tracks[0]
 
 # car image
 car_image = pygame.image.load("assets/car_red.png").convert_alpha()
@@ -16,29 +20,21 @@ car_image = pygame.transform.rotate(car_image, -90)
 car_image = pygame.transform.scale(car_image, (50, 25))
 
 # track image and mask
-track = pygame.image.load("assets/track2.png").convert()
+track = pygame.image.load(track1["image"]).convert()
 grass_mask = pygame.mask.from_threshold(track, (60, 150, 60, 255), (1, 1, 1, 255))
 
-# car coordinates
-# START_X = 120
-# START_Y = 300 
-# START_ANGLE = 90
 GENERATION_FRAMES = 2000
 
-START_X = 100
-START_Y = 400
-START_ANGLE = 106
+START_X = track1["start_x"]
+START_Y = track1["start_y"]
+START_ANGLE = track1["start_angle"]
+CHECKPOINTS = track1["checkpoints"]
+CHECKPOINT_RADIUS = 70
 
 frame = 0
 generation = 1
 best_scores = []
 drawing = True
-
-# checkpoints
-# CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 435), (300, 515), (140, 460), (120, 300)]
-CHECKPOINTS = [(98, 247), (170, 116), (316, 77), (470, 80), (623, 85), (725, 179), (632, 276), (681, 373), (661, 508), (511, 528), (358, 519), (206, 502), (100, 400)]
-CHECKPOINT_RADIUS = 70
-
 
 cars = []
 
@@ -133,7 +129,7 @@ plt.plot(best_scores)
 plt.xlabel("generation")
 plt.ylabel("best score")
 plt.title("evolution progress")
-plt.savefig("fitness_mut0.01.png")
+# plt.savefig("fitness_mut0.01.png")
 plt.show()
 
 pygame.quit()
