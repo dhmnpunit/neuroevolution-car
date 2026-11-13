@@ -86,7 +86,7 @@ while running:
 
         # calculate fitness score
         for car in cars:
-            car.fitness += car.score / len(current_track["checkpoints"])
+            car.fitness += min(car.score / len(current_track["checkpoints"]), 1)
 
         # if all tracks not finished yet -> start the new track and reset car positions
         if track_index < len(training_tracks) - 1:
@@ -130,7 +130,7 @@ while running:
                 car = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], new_brain)
                 cars.append(car)
 
-            with open("best_brain_25_tracks.pkl", "wb") as file:
+            with open("best_brain_capped.pkl", "wb") as file:
                 pickle.dump(elite_car.brain, file)
 
     ###################
@@ -157,7 +157,7 @@ plt.plot(best_car_fitness)
 plt.xlabel("generation")
 plt.ylabel("best fitness")
 plt.title("evolution progress")
-plt.savefig("fitness_25_tracks.png")
+plt.savefig("fitness_capped.png")
 plt.show()
 
 pygame.quit()

@@ -92,6 +92,7 @@ class Car:
 
             if self.next_checkpoint == len(checkpoints):
                 self.laps += 1
+                self.alive = False
                 self.next_checkpoint = 0
 
             self.score += 1
