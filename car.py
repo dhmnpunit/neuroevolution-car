@@ -2,6 +2,8 @@ import math
 from brain import create_brain, think
 
 ACCELERATION = 0.06
+GRASS_COLOR = (60, 150, 60, 255)
+RAY_LENGTH = 200
 
 class Car:
     def __init__(self, x, y, angle):
@@ -30,3 +32,25 @@ class Car:
         self.y -= self.speed * math.sin(math.radians(self.angle))
 
         self.speed *= 0.98    
+
+    def sense(self, track):
+
+        self.distances = []
+        self.ray_ends = []
+
+        for offset in [90, 45, 0, -45, -90]:
+
+            d = 0
+    
+            while d < RAY_LENGTH:
+                ray_x = self.x + d * math.cos(math.radians(self.angle + offset))
+                ray_y = self.y - d * math.sin(math.radians(self.angle + offset))
+    
+                track_color = track.get_at((int(ray_x), int(ray_y)))
+                if track_color == GRASS_COLOR:
+                    break
+                d += 1
+    
+            self.distances.append(d/ 200)
+            self.ray_ends.append([ray_x, ray_y])
+    
