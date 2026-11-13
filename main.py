@@ -36,6 +36,10 @@ for i in range(50):
     car = Car(START_X, START_Y, START_ANGLE)
     cars.append(car)
 
+def get_score(car):
+    car_score = car.score
+
+    return car_score
 
 running = True
 while running:
@@ -71,6 +75,9 @@ while running:
     if dead == len(cars) or frame >= GENERATION_FRAMES:
         print("generation no: " +  str(generation))
         print("best score: " + str(max(scores)))
+
+        sorted_cars = sorted(cars, key=get_score, reverse=True)
+        parents = sorted_cars[:10]
 
         generation += 1
         frame = 0
