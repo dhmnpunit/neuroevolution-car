@@ -5,6 +5,8 @@ from brain import create_brain, think
 ACCELERATION = 0.06
 GRASS_COLOR = (60, 150, 60, 255)
 RAY_LENGTH = 200
+BIG_STEP = 4                # ray stride: about 5x faster rays; can overshoot by a few px only when a ray grazes a wall edge
+NO_PROGRESS_LIMIT = 800     # frames without reaching a new gate before a car is stopped (catches circlers)
 
 class Car:
     def __init__(self, start_x, start_y, start_angle, brain = None):
@@ -25,6 +27,7 @@ class Car:
         self.alive = True
         self.rotated_image = None
         self.rotated_rect = None
+        self.frames_since_gate = 0
 
     def reset(self, start_x, start_y, start_angle):
         self.x = start_x
@@ -38,6 +41,7 @@ class Car:
         self.distances = [1, 1, 1, 1, 1]
         self.rotated_image = None
         self.rotated_rect = None
+        self.frames_since_gate = 0
 
     def drive(self):
         output = think(self.brain, self.distances)
@@ -59,19 +63,29 @@ class Car:
 
         for offset in [90, 45, 0, -45, -90]:
 
+            # the ray's direction never changes while we walk along it, so work it out once
+            ray_angle = math.radians(self.angle + offset)
+            step_x = math.cos(ray_angle)
+            step_y = -math.sin(ray_angle)
+
+            # big steps: jump BIG_STEP pixels at a time until we land on grass or run out of range
             d = 0
-    
             while d < RAY_LENGTH:
-                ray_x = self.x + d * math.cos(math.radians(self.angle + offset))
-                ray_y = self.y - d * math.sin(math.radians(self.angle + offset))
-    
-                track_color = track.get_at((int(ray_x), int(ray_y)))
-                if track_color == GRASS_COLOR:
+                if track.get_at((int(self.x + d * step_x), int(self.y + d * step_y))) == GRASS_COLOR:
                     break
-                d += 1
-    
-            self.distances.append(d/ 200)
-            self.ray_ends.append([ray_x, ray_y])
+                d += BIG_STEP
+
+            # small steps: back up one big step, then walk 1 pixel at a time to the exact edge
+            if d < RAY_LENGTH:
+                d = max(d - BIG_STEP, 0)
+                while d < RAY_LENGTH:
+                    if track.get_at((int(self.x + d * step_x), int(self.y + d * step_y))) == GRASS_COLOR:
+                        break
+                    d += 1
+
+            d = min(d, RAY_LENGTH)
+            self.distances.append(d / RAY_LENGTH)
+            self.ray_ends.append([self.x + d * step_x, self.y + d * step_y])
 
     def detect_crash(self, car_image, grass_mask):
         self.rotated_image = pygame.transform.rotate(car_image, self.angle)     # rotate the image based on the angle
@@ -89,6 +103,7 @@ class Car:
 
         if distance < checkpoint_radius:
             self.next_checkpoint += 1
+            self.frames_since_gate = 0
 
             if self.next_checkpoint == len(checkpoints):
                 self.laps += 1
@@ -96,4 +111,9 @@ class Car:
                 self.next_checkpoint = 0
 
             self.score += 1
+        else:
+            # a car that stops making progress (e.g. circling) can't raise its score, so stop simulating it
+            self.frames_since_gate += 1
+            if self.frames_since_gate > NO_PROGRESS_LIMIT:
+                self.alive = False
     
