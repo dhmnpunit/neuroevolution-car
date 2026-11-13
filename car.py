@@ -6,7 +6,6 @@ ACCELERATION = 0.06
 GRASS_COLOR = (60, 150, 60, 255)
 RAY_LENGTH = 200
 
-
 class Car:
     def __init__(self, start_x, start_y, start_angle):
 
