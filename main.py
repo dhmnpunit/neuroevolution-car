@@ -130,7 +130,7 @@ while running:
                 car = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], new_brain)
                 cars.append(car)
 
-            with open("best_brain.pkl", "wb") as file:
+            with open("best_brain1.pkl", "wb") as file:
                 pickle.dump(elite_car.brain, file)
 
     ###################

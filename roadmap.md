@@ -6,8 +6,8 @@ A 2D top-down car in pygame that learns to drive by evolution. It sees the walls
 
 The project is **done** when every box below is ticked. Then we stop. No "one more feature".
 
-- [ ] A brain trained by evolution completes a full lap on every training track (5 tracks).
-- [ ] The same saved brain, with no extra training, completes a full lap on at least 2 of 3 test tracks it has never seen.
+- [x] A brain trained by evolution completes a full lap on every training track (5 tracks).
+- [x] The same saved brain, with no extra training, completes a full lap on at least 2 of 3 test tracks it has never seen.
 - [ ] One command trains from scratch, and one command runs a saved brain on any track.
 - [ ] The README has: what it is, how to run it, a fitness-per-generation plot, a GIF of the car driving an unseen track, a results table (lap completion per track), and an honest "where it fails and why" section.
 - [ ] You can explain every part of the code without looking it up.
@@ -139,10 +139,10 @@ Done when:
 **Research:** "overfitting", `np.save` and `np.load`.
 
 Done when:
-- [ ] 5 training tracks and 3 test tracks are drawn, and the test tracks are never used in training
-- [ ] training uses all 5 training tracks
-- [ ] the best brain is saved to a file and loaded back
-- [ ] evaluation prints lap completion % for every track, with training and test tracks shown separately
+- [x] 5 training tracks and 3 test tracks are drawn, and the test tracks are never used in training
+- [x] training uses all 5 training tracks
+- [x] the best brain is saved to a file and loaded back
+- [x] evaluation prints lap completion % for every track, with training and test tracks shown separately
 
 ### M9: Experiments and write-up
 
