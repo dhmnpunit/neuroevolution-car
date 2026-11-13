@@ -1,9 +1,13 @@
 import math
+import pygame
 from brain import create_brain, think
 
 ACCELERATION = 0.06
 GRASS_COLOR = (60, 150, 60, 255)
 RAY_LENGTH = 200
+START_X = 120
+START_Y = 300 
+START_ANGLE = 90
 
 class Car:
     def __init__(self, x, y, angle):
@@ -19,6 +23,7 @@ class Car:
         self.next_checkpoint = 0
         self.laps = 0
         self.distances = [1, 1, 1, 1, 1]
+        self.alive = True
 
     def drive(self):
         output = think(self.brain, self.distances)
@@ -53,4 +58,14 @@ class Car:
     
             self.distances.append(d/ 200)
             self.ray_ends.append([ray_x, ray_y])
+
+    def detect_crash(self, car_image, grass_mask):
+        self.rotated_image = pygame.transform.rotate(car_image, self.angle)     # rotate the image based on the angle
+        self.rotated_rect = self.rotated_image.get_rect(center = (self.x, self.y))      # make a rectangle out of the rotated image
+
+        car_mask = pygame.mask.from_surface(self.rotated_image)     # make the mask from the rotated image
+
+        if grass_mask.overlap(car_mask, (self.rotated_rect.x, self.rotated_rect.y)):        # checks if car mask overlaps grass mask
+            self.alive = False
+
     
