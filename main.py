@@ -130,7 +130,7 @@ while running:
                 car = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], new_brain)
                 cars.append(car)
 
-            with open("best_brain1.pkl", "wb") as file:
+            with open("best_brain_25_tracks.pkl", "wb") as file:
                 pickle.dump(elite_car.brain, file)
 
     ###################
@@ -157,7 +157,7 @@ plt.plot(best_car_fitness)
 plt.xlabel("generation")
 plt.ylabel("best fitness")
 plt.title("evolution progress")
-# plt.savefig("fitness_mut0.01.png")
+plt.savefig("fitness_25_tracks.png")
 plt.show()
 
 pygame.quit()
