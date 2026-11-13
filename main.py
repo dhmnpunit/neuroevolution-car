@@ -1,5 +1,7 @@
 import pygame
+import random
 from car import Car
+from brain import mutate
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -79,12 +81,20 @@ while running:
         sorted_cars = sorted(cars, key=get_score, reverse=True)
         parents = sorted_cars[:10]
 
+
         generation += 1
         frame = 0
-        cars = []
+        cars = []       
 
-        for i in range(50):
-            car = Car(START_X, START_Y, START_ANGLE)
+        elite_car = parents[0]
+        elite = Car(START_X, START_Y, START_ANGLE, elite_car.brain)
+        cars.append(elite)     
+
+        for i in range(49):
+            parent = random.choice(parents)
+            new_brain = mutate(parent.brain)
+
+            car = Car(START_X, START_Y, START_ANGLE, new_brain)
             cars.append(car)
 
     ###################
