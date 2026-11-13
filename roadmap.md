@@ -114,11 +114,11 @@ Done when:
 **Research:** Python classes (`__init__`, methods), "pygame performance with many sprites".
 
 Done when:
-- [ ] 50 or more cars drive at once
-- [ ] each car stops when it crashes or hits a time limit
-- [ ] a generation ends when every car has stopped
-- [ ] the best fitness of each generation is printed
-- [ ] drawing can be turned off so training runs faster than real time
+- [x] 50 or more cars drive at once
+- [x] each car stops when it crashes or hits a time limit
+- [x] a generation ends when every car has stopped
+- [x] the best fitness of each generation is printed
+- [x] drawing can be turned off so training runs faster than real time
 
 ### M7: Evolution
 

@@ -24,6 +24,7 @@ GENERATION_FRAMES = 2000
 
 frame = 0
 generation = 1
+drawing = True
 
 # checkpoints
 CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 435), (300, 515), (140, 460), (120, 300)]
@@ -42,6 +43,10 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_d:
+                drawing = not drawing
 
     ###################
     ## LOGIC
@@ -79,19 +84,20 @@ while running:
     ## DRAWING
     ###################
 
-    # display track on screen
-    screen.blit(track, (0, 0))
+    if drawing:
+        # display track on screen
+        screen.blit(track, (0, 0))
 
-    # display checkpoints 
-    for checkpoints in CHECKPOINTS:
-        pygame.draw.circle(screen, (0, 150, 255), checkpoints, CHECKPOINT_RADIUS, 2)
+        # display checkpoints 
+        for checkpoints in CHECKPOINTS:
+            pygame.draw.circle(screen, (0, 150, 255), checkpoints, CHECKPOINT_RADIUS, 2)
 
-    for car in cars:
-        # display car image on screen
-        if car.alive and car.rotated_image is not None:
-            screen.blit(car.rotated_image, car.rotated_rect)
+        for car in cars:
+            # display car image on screen
+            if car.alive and car.rotated_image is not None:
+                screen.blit(car.rotated_image, car.rotated_rect)
 
-    pygame.display.flip()
-    clock.tick(60)
+        pygame.display.flip()
+        clock.tick(60)
 
 pygame.quit()
