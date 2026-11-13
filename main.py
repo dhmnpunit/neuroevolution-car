@@ -29,7 +29,7 @@ car_image = pygame.image.load("assets/car_red.png").convert_alpha()
 car_image = pygame.transform.rotate(car_image, -90)
 car_image = pygame.transform.scale(car_image, (50, 25))
 
-GENERATION_FRAMES = 2000
+GENERATION_FRAMES = 3000
 CHECKPOINT_RADIUS = 70
 
 track_index = 0
@@ -37,7 +37,7 @@ current_track = training_tracks[track_index]
 
 frame = 0
 generation = 1
-best_scores = []
+best_car_fitness = []
 drawing = True
 
 cars = []
@@ -46,8 +46,8 @@ for i in range(50):
     car = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"])
     cars.append(car)
 
-def get_score(car):
-    car_score = car.score
+def get_fitness(car):
+    car_score = car.fitness
 
     return car_score
 
@@ -83,33 +83,55 @@ while running:
         scores.append(car.score)        
 
     if dead == len(cars) or frame >= GENERATION_FRAMES:
-        print("generation no: " +  str(generation))
-        print("best score: " + str(max(scores)))
 
-        sorted_cars = sorted(cars, key=get_score, reverse=True)
-        parents = sorted_cars[:10]
+        # calculate fitness score
+        for car in cars:
+            car.fitness += car.score / len(current_track["checkpoints"])
 
-        generation += 1
-        best_scores.append(max(scores))
-        frame = 0
-        cars = []       
+        # if all tracks not finished yet -> start the new track and reset car positions
+        if track_index < len(training_tracks) - 1:
+            track_index += 1
+            current_track = training_tracks[track_index]
 
-        elite_car = parents[0]
-        elite = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], elite_car.brain)
-        cars.append(elite)     
+            for car in cars:
+                car.reset(current_track["start_x"], current_track["start_y"], current_track["start_angle"])
+            frame = 0
 
-        for i in range(49):
-            parent1 = random.choice(parents)
-            parent2 = random.choice(parents)
+        # if all tracks finished or one generation finished
+        else:
+            # cars sorted by fitness
+            sorted_cars = sorted(cars, key=get_fitness, reverse=True)
+            parents = sorted_cars[:10]      # find parents
 
-            new_brain = crossover(parent1.brain, parent2.brain)
-            new_brain = mutate(new_brain)
+            print("generation no: " +  str(generation))
+            print("best fitness: " + str(sorted_cars[0].fitness))
 
-            car = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], new_brain)
-            cars.append(car)
+            generation += 1     # increase generation
+            frame = 0           # reset frame
+            cars = []           # delete old cars
+            track_index = 0     # reset track index
+            current_track = training_tracks[track_index]
 
-        with open("best_brain.pkl", "wb") as file:
-            pickle.dump(elite_car.brain, file)
+            # save elite car and append to new list of cars
+            elite_car = parents[0]
+            elite = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], elite_car.brain)
+            cars.append(elite)
+
+            best_car_fitness.append(elite_car.fitness)
+
+            # create rest of the cars by crossover and mutation
+            for i in range(49):
+                parent1 = random.choice(parents)
+                parent2 = random.choice(parents)
+
+                new_brain = crossover(parent1.brain, parent2.brain)
+                new_brain = mutate(new_brain)
+
+                car = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], new_brain)
+                cars.append(car)
+
+            with open("best_brain.pkl", "wb") as file:
+                pickle.dump(elite_car.brain, file)
 
     ###################
     ## DRAWING
@@ -131,9 +153,9 @@ while running:
         pygame.display.flip()
         clock.tick(60)
 
-plt.plot(best_scores)
+plt.plot(best_car_fitness)
 plt.xlabel("generation")
-plt.ylabel("best score")
+plt.ylabel("best fitness")
 plt.title("evolution progress")
 # plt.savefig("fitness_mut0.01.png")
 plt.show()
