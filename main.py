@@ -13,24 +13,27 @@ pygame.display.set_caption("Self Driving Car AI")
 clock = pygame.time.Clock()
 
 tracks = json.load(open("assets/tracks/tracks.json"))
-track1 = tracks[0]
+training_tracks = []
+
+for t in tracks:
+    if t["set"] == "train":
+        training_tracks.append(t)
+
+# track image and mask
+for t in training_tracks:
+    t["surface"] = pygame.image.load(t["image"]).convert()
+    t["grass_mask"] = pygame.mask.from_threshold(t["surface"], (60, 150, 60, 255), (1, 1, 1, 255))
 
 # car image
 car_image = pygame.image.load("assets/car_red.png").convert_alpha()
 car_image = pygame.transform.rotate(car_image, -90)
 car_image = pygame.transform.scale(car_image, (50, 25))
 
-# track image and mask
-track = pygame.image.load(track1["image"]).convert()
-grass_mask = pygame.mask.from_threshold(track, (60, 150, 60, 255), (1, 1, 1, 255))
-
 GENERATION_FRAMES = 2000
-
-START_X = track1["start_x"]
-START_Y = track1["start_y"]
-START_ANGLE = track1["start_angle"]
-CHECKPOINTS = track1["checkpoints"]
 CHECKPOINT_RADIUS = 70
+
+track_index = 0
+current_track = training_tracks[track_index]
 
 frame = 0
 generation = 1
@@ -40,7 +43,7 @@ drawing = True
 cars = []
 
 for i in range(50):
-    car = Car(START_X, START_Y, START_ANGLE)
+    car = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"])
     cars.append(car)
 
 def get_score(car):
@@ -69,10 +72,10 @@ while running:
 
     for car in cars:
         if car.alive == True:
-            car.sense(track)
+            car.sense(current_track["surface"])
             car.drive()
-            car.detect_crash(car_image, grass_mask)
-            car.calculate_score(CHECKPOINTS, CHECKPOINT_RADIUS)
+            car.detect_crash(car_image, current_track["grass_mask"])
+            car.calculate_score(current_track["checkpoints"], CHECKPOINT_RADIUS)
 
         if not car.alive:
             dead += 1
@@ -92,7 +95,7 @@ while running:
         cars = []       
 
         elite_car = parents[0]
-        elite = Car(START_X, START_Y, START_ANGLE, elite_car.brain)
+        elite = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], elite_car.brain)
         cars.append(elite)     
 
         for i in range(49):
@@ -102,7 +105,7 @@ while running:
             new_brain = crossover(parent1.brain, parent2.brain)
             new_brain = mutate(new_brain)
 
-            car = Car(START_X, START_Y, START_ANGLE, new_brain)
+            car = Car(current_track["start_x"], current_track["start_y"], current_track["start_angle"], new_brain)
             cars.append(car)
 
         with open("best_brain.pkl", "wb") as file:
@@ -114,7 +117,7 @@ while running:
 
     if drawing:
         # display track on screen
-        screen.blit(track, (0, 0))
+        screen.blit(current_track["surface"], (0, 0))
 
         # display checkpoints 
         # for checkpoints in CHECKPOINTS:
