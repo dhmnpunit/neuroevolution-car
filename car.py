@@ -21,6 +21,8 @@ class Car:
         self.laps = 0
         self.distances = [1, 1, 1, 1, 1]
         self.alive = True
+        self.rotated_image = None
+        self.rotated_rect = None
 
     def drive(self):
         output = think(self.brain, self.distances)

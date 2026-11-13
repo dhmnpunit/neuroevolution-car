@@ -20,6 +20,10 @@ grass_mask = pygame.mask.from_threshold(track, (60, 150, 60, 255), (1, 1, 1, 255
 START_X = 120
 START_Y = 300 
 START_ANGLE = 90
+GENERATION_FRAMES = 2000
+
+frame = 0
+generation = 1
 
 # checkpoints
 CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 435), (300, 515), (140, 460), (120, 300)]
@@ -43,6 +47,10 @@ while running:
     ## LOGIC
     ###################
 
+    dead = 0
+    scores = []
+    frame += 1
+
     for car in cars:
         if car.alive == True:
             car.sense(track)
@@ -50,6 +58,22 @@ while running:
             car.detect_crash(car_image, grass_mask)
             car.calculate_score(CHECKPOINTS, CHECKPOINT_RADIUS)
 
+        if not car.alive:
+            dead += 1
+
+        scores.append(car.score)        
+
+    if dead == len(cars) or frame >= GENERATION_FRAMES:
+        print("generation no: " +  str(generation))
+        print("best score: " + str(max(scores)))
+
+        generation += 1
+        frame = 0
+        cars = []
+
+        for i in range(50):
+            car = Car(START_X, START_Y, START_ANGLE)
+            cars.append(car)
 
     ###################
     ## DRAWING
@@ -64,13 +88,8 @@ while running:
 
     for car in cars:
         # display car image on screen
-        if car.alive:
+        if car.alive and car.rotated_image is not None:
             screen.blit(car.rotated_image, car.rotated_rect)
-
-        # display rays
-        # for end in car.ray_ends:
-        #     pygame.draw.line(screen, (255, 255, 0), (car.x, car.y), (end[0], end[1]), 2)
-        
 
     pygame.display.flip()
     clock.tick(60)
