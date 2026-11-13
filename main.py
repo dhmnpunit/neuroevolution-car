@@ -1,7 +1,7 @@
 import pygame
 import random
 from car import Car
-from brain import mutate
+from brain import mutate, crossover
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -15,26 +15,26 @@ car_image = pygame.transform.rotate(car_image, -90)
 car_image = pygame.transform.scale(car_image, (50, 25))
 
 # track image and mask
-track = pygame.image.load("assets/track2.png").convert()
+track = pygame.image.load("assets/track1.png").convert()
 grass_mask = pygame.mask.from_threshold(track, (60, 150, 60, 255), (1, 1, 1, 255))
 
 # car coordinates
-# START_X = 120
-# START_Y = 300 
-# START_ANGLE = 90
+START_X = 120
+START_Y = 300 
+START_ANGLE = 90
 GENERATION_FRAMES = 2000
 
-START_X = 100
-START_Y = 400
-START_ANGLE = 106
+# START_X = 100
+# START_Y = 400
+# START_ANGLE = 106
 
 frame = 0
 generation = 1
 drawing = True
 
 # checkpoints
-# CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 435), (300, 515), (140, 460), (120, 300)]
-CHECKPOINTS = [(98, 247), (170, 116), (316, 77), (470, 80), (623, 85), (725, 179), (632, 276), (681, 373), (661, 508), (511, 528), (358, 519), (206, 502), (100, 400)]
+CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 435), (300, 515), (140, 460), (120, 300)]
+# CHECKPOINTS = [(98, 247), (170, 116), (316, 77), (470, 80), (623, 85), (725, 179), (632, 276), (681, 373), (661, 508), (511, 528), (358, 519), (206, 502), (100, 400)]
 CHECKPOINT_RADIUS = 70
 
 
@@ -97,8 +97,11 @@ while running:
         cars.append(elite)     
 
         for i in range(49):
-            parent = random.choice(parents)
-            new_brain = mutate(parent.brain)
+            parent1 = random.choice(parents)
+            parent2 = random.choice(parents)
+
+            new_brain = crossover(parent1.brain, parent2.brain)
+            new_brain = mutate(new_brain)
 
             car = Car(START_X, START_Y, START_ANGLE, new_brain)
             cars.append(car)
