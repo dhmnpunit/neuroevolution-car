@@ -127,10 +127,10 @@ Done when:
 **Research:** "genetic algorithm explained", "neuroevolution", "elitism in genetic algorithms".
 
 Done when:
-- [ ] each new generation is made from the best brains of the last one
-- [ ] best fitness per generation is saved and plotted with matplotlib, and the line goes up
-- [ ] a car completes a full lap on your first track
-- [ ] you can explain what happens when mutation is too big and when it's too small, because you tried both
+- [x] each new generation is made from the best brains of the last one
+- [x] best fitness per generation is saved and plotted with matplotlib, and the line goes up
+- [x] a car completes a full lap on your first track
+- [x] you can explain what happens when mutation is too big and when it's too small, because you tried both
 
 ### M8: Generalization test
 
