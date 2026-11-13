@@ -5,18 +5,16 @@ from brain import create_brain, think
 ACCELERATION = 0.06
 GRASS_COLOR = (60, 150, 60, 255)
 RAY_LENGTH = 200
-START_X = 120
-START_Y = 300 
-START_ANGLE = 90
+
 
 class Car:
-    def __init__(self, x, y, angle):
+    def __init__(self, start_x, start_y, start_angle):
 
         brain = create_brain()
 
-        self.x = x
-        self.y = y
-        self.angle = angle
+        self.x = start_x
+        self.y = start_y
+        self.angle = start_angle
         self.speed = 0
         self.brain = brain
         self.score = 0
@@ -68,4 +66,17 @@ class Car:
         if grass_mask.overlap(car_mask, (self.rotated_rect.x, self.rotated_rect.y)):        # checks if car mask overlaps grass mask
             self.alive = False
 
+    def calculate_score(self, checkpoints, checkpoint_radius):
+
+        point = checkpoints[self.next_checkpoint]
+        distance = math.dist((self.x, self.y), point)
+
+        if distance < checkpoint_radius:
+            self.next_checkpoint += 1
+
+            if self.next_checkpoint == len(checkpoints):
+                self.laps += 1
+                self.next_checkpoint = 0
+
+            self.score += 1
     
