@@ -90,8 +90,8 @@
   ]
  },
  {
-  "name": "track3",
-  "image": "assets/tracks/track3.png",
+  "name": "track2",
+  "image": "assets/tracks/track2.png",
   "set": "train",
   "start_x": 150,
   "start_y": 350,
@@ -184,8 +184,8 @@
   ]
  },
  {
-  "name": "track4",
-  "image": "assets/tracks/track4.png",
+  "name": "track3",
+  "image": "assets/tracks/track3.png",
   "set": "train",
   "start_x": 130,
   "start_y": 450,
@@ -282,9 +282,9 @@
   ]
  },
  {
-  "name": "track5",
-  "image": "assets/tracks/track5.png",
-  "set": "test",
+  "name": "track4",
+  "image": "assets/tracks/track4.png",
+  "set": "train",
   "start_x": 180,
   "start_y": 420,
   "start_angle": 100,
@@ -368,8 +368,8 @@
   ]
  },
  {
-  "name": "track6",
-  "image": "assets/tracks/track6.png",
+  "name": "track5",
+  "image": "assets/tracks/track5.png",
   "set": "train",
   "start_x": 220,
   "start_y": 630,
@@ -482,8 +482,8 @@
   ]
  },
  {
-  "name": "track7",
-  "image": "assets/tracks/track7.png",
+  "name": "track6",
+  "image": "assets/tracks/track6.png",
   "set": "train",
   "start_x": 150,
   "start_y": 420,
@@ -572,8 +572,8 @@
   ]
  },
  {
-  "name": "track8",
-  "image": "assets/tracks/track8.png",
+  "name": "track7",
+  "image": "assets/tracks/track7.png",
   "set": "test",
   "start_x": 250,
   "start_y": 690,
@@ -682,8 +682,8 @@
   ]
  },
  {
-  "name": "track9",
-  "image": "assets/tracks/track9.png",
+  "name": "track8",
+  "image": "assets/tracks/track8.png",
   "set": "train",
   "start_x": 120,
   "start_y": 420,
@@ -800,9 +800,9 @@
   ]
  },
  {
-  "name": "track10",
-  "image": "assets/tracks/track10.png",
-  "set": "train",
+  "name": "track9",
+  "image": "assets/tracks/track9.png",
+  "set": "test",
   "start_x": 646,
   "start_y": 690,
   "start_angle": 0,
@@ -866,8 +866,8 @@
   ]
  },
  {
-  "name": "track12",
-  "image": "assets/tracks/track12.png",
+  "name": "track10",
+  "image": "assets/tracks/track10.png",
   "set": "train",
   "start_x": 220,
   "start_y": 520,
@@ -940,9 +940,9 @@
   ]
  },
  {
-  "name": "track13",
-  "image": "assets/tracks/track13.png",
-  "set": "train",
+  "name": "track11",
+  "image": "assets/tracks/track11.png",
+  "set": "test",
   "start_x": 130,
   "start_y": 420,
   "start_angle": 90,
@@ -1038,8 +1038,8 @@
   ]
  },
  {
-  "name": "track14",
-  "image": "assets/tracks/track14.png",
+  "name": "track12",
+  "image": "assets/tracks/track12.png",
   "set": "test",
   "start_x": 150,
   "start_y": 600,
@@ -1128,8 +1128,8 @@
   ]
  },
  {
-  "name": "track16",
-  "image": "assets/tracks/track16.png",
+  "name": "track13",
+  "image": "assets/tracks/track13.png",
   "set": "train",
   "start_x": 120,
   "start_y": 600,
@@ -1250,8 +1250,8 @@
   ]
  },
  {
-  "name": "track19",
-  "image": "assets/tracks/track19.png",
+  "name": "track14",
+  "image": "assets/tracks/track14.png",
   "set": "test",
   "start_x": 130,
   "start_y": 400,
@@ -1340,8 +1340,8 @@
   ]
  },
  {
-  "name": "track20",
-  "image": "assets/tracks/track20.png",
+  "name": "track15",
+  "image": "assets/tracks/track15.png",
   "set": "train",
   "start_x": 110,
   "start_y": 420,
@@ -1458,8 +1458,8 @@
   ]
  },
  {
-  "name": "track21",
-  "image": "assets/tracks/track21.png",
+  "name": "track16",
+  "image": "assets/tracks/track16.png",
   "set": "train",
   "start_x": 467,
   "start_y": 129,
@@ -1544,8 +1544,8 @@
   ]
  },
  {
-  "name": "track22",
-  "image": "assets/tracks/track22.png",
+  "name": "track17",
+  "image": "assets/tracks/track17.png",
   "set": "train",
   "start_x": 598,
   "start_y": 143,
@@ -1626,8 +1626,8 @@
   ]
  },
  {
-  "name": "track23",
-  "image": "assets/tracks/track23.png",
+  "name": "track18",
+  "image": "assets/tracks/track18.png",
   "set": "test",
   "start_x": 780,
   "start_y": 195,
@@ -1704,8 +1704,8 @@
   ]
  },
  {
-  "name": "track24",
-  "image": "assets/tracks/track24.png",
+  "name": "track19",
+  "image": "assets/tracks/track19.png",
   "set": "train",
   "start_x": 618,
   "start_y": 663,
@@ -1782,8 +1782,8 @@
   ]
  },
  {
-  "name": "track25",
-  "image": "assets/tracks/track25.png",
+  "name": "track20",
+  "image": "assets/tracks/track20.png",
   "set": "test",
   "start_x": 749,
   "start_y": 125,
@@ -1860,8 +1860,8 @@
   ]
  },
  {
-  "name": "track26",
-  "image": "assets/tracks/track26.png",
+  "name": "track21",
+  "image": "assets/tracks/track21.png",
   "set": "train",
   "start_x": 386,
   "start_y": 176,
@@ -1942,8 +1942,8 @@
   ]
  },
  {
-  "name": "track27",
-  "image": "assets/tracks/track27.png",
+  "name": "track22",
+  "image": "assets/tracks/track22.png",
   "set": "train",
   "start_x": 699,
   "start_y": 644,
@@ -2024,9 +2024,9 @@
   ]
  },
  {
-  "name": "track28",
-  "image": "assets/tracks/track28.png",
-  "set": "test",
+  "name": "track23",
+  "image": "assets/tracks/track23.png",
+  "set": "train",
   "start_x": 202,
   "start_y": 566,
   "start_angle": 151,
@@ -2110,8 +2110,8 @@
   ]
  },
  {
-  "name": "track29",
-  "image": "assets/tracks/track29.png",
+  "name": "track24",
+  "image": "assets/tracks/track24.png",
   "set": "train",
   "start_x": 609,
   "start_y": 153,
@@ -2192,8 +2192,8 @@
   ]
  },
  {
-  "name": "track30",
-  "image": "assets/tracks/track30.png",
+  "name": "track25",
+  "image": "assets/tracks/track25.png",
   "set": "train",
   "start_x": 431,
   "start_y": 127,
