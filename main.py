@@ -2,6 +2,7 @@ import pygame
 import random
 from car import Car
 from brain import mutate, crossover
+import matplotlib.pyplot as plt
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -30,6 +31,7 @@ GENERATION_FRAMES = 2000
 
 frame = 0
 generation = 1
+best_scores = []
 drawing = True
 
 # checkpoints
@@ -89,6 +91,7 @@ while running:
 
 
         generation += 1
+        best_scores.append(max(scores))
         frame = 0
         cars = []       
 
@@ -125,5 +128,12 @@ while running:
 
         pygame.display.flip()
         clock.tick(60)
+
+plt.plot(best_scores)
+plt.xlabel("generation")
+plt.ylabel("best score")
+plt.title("evolution progress")
+plt.savefig("fitness.png")
+plt.show()
 
 pygame.quit()
