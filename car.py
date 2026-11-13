@@ -7,9 +7,10 @@ GRASS_COLOR = (60, 150, 60, 255)
 RAY_LENGTH = 200
 
 class Car:
-    def __init__(self, start_x, start_y, start_angle):
+    def __init__(self, start_x, start_y, start_angle, brain = None):
 
-        brain = create_brain()
+        if brain is None:
+            brain = create_brain()
 
         self.x = start_x
         self.y = start_y
