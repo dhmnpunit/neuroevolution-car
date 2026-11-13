@@ -1,6 +1,7 @@
 import pygame
 import random
 import json
+import pickle
 from car import Car
 from brain import mutate, crossover
 import matplotlib.pyplot as plt
@@ -85,7 +86,6 @@ while running:
         sorted_cars = sorted(cars, key=get_score, reverse=True)
         parents = sorted_cars[:10]
 
-
         generation += 1
         best_scores.append(max(scores))
         frame = 0
@@ -104,6 +104,9 @@ while running:
 
             car = Car(START_X, START_Y, START_ANGLE, new_brain)
             cars.append(car)
+
+        with open("best_brain.pkl", "wb") as file:
+            pickle.dump(elite_car.brain, file)
 
     ###################
     ## DRAWING
