@@ -1,6 +1,4 @@
 import pygame
-import math
-from brain import create_brain, think
 from car import Car
 
 pygame.init()
@@ -27,7 +25,11 @@ START_ANGLE = 90
 CHECKPOINTS = [(150, 130), (300, 95), (420, 190), (540, 95), (690, 130), (710, 300), (650, 480), (480, 520), (400, 435), (300, 515), (140, 460), (120, 300)]
 CHECKPOINT_RADIUS = 70
 
-car_a = Car(START_X, START_Y, START_ANGLE)
+cars = []
+
+for i in range(50):
+    car = Car(START_X, START_Y, START_ANGLE)
+    cars.append(car)
 
 
 running = True
@@ -41,11 +43,13 @@ while running:
     ## LOGIC
     ###################
 
-    if car_a.alive == True:
-        car_a.sense(track)
-        car_a.drive()
-        car_a.detect_crash(car_image, grass_mask)
-        car_a.calculate_score(CHECKPOINTS, CHECKPOINT_RADIUS)
+    for car in cars:
+        if car.alive == True:
+            car.sense(track)
+            car.drive()
+            car.detect_crash(car_image, grass_mask)
+            car.calculate_score(CHECKPOINTS, CHECKPOINT_RADIUS)
+
 
     ###################
     ## DRAWING
@@ -54,16 +58,19 @@ while running:
     # display track on screen
     screen.blit(track, (0, 0))
 
-    # display car image on screen
-    screen.blit(car_a.rotated_image, car_a.rotated_rect)
-
     # display checkpoints 
     for checkpoints in CHECKPOINTS:
         pygame.draw.circle(screen, (0, 150, 255), checkpoints, CHECKPOINT_RADIUS, 2)
 
-    # display rays
-    for end in car_a.ray_ends:
-        pygame.draw.line(screen, (255, 255, 0), (car_a.x, car_a.y), (end[0], end[1]), 2)
+    for car in cars:
+        # display car image on screen
+        if car.alive:
+            screen.blit(car.rotated_image, car.rotated_rect)
+
+        # display rays
+        # for end in car.ray_ends:
+        #     pygame.draw.line(screen, (255, 255, 0), (car.x, car.y), (end[0], end[1]), 2)
+        
 
     pygame.display.flip()
     clock.tick(60)
