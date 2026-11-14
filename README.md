@@ -4,9 +4,9 @@ A 2D top-down car learns to drive by itself. It sees the track through 7 distanc
 
 No ML libraries are used. The neural network and the genetic algorithm are written by hand in Python and NumPy, and the game runs in pygame.
 
-![The trained car driving track 18, which it never saw during training](docs/demo_track18.gif)
+![The trained car driving two test tracks it never saw during training, with its neural network shown live](docs/demo.gif)
 
-*The final brain driving **track 18**, a test track it never saw during training (a thin stretch of road plus a grass island it has to steer around).*
+*The final brain driving two **test tracks it never saw during training**: track 7 (the hairpin the first version crashed on; it now brakes for it) and track 18 (a thin road plus a grass island to steer around). The rays are colored by distance (green = far, red = wall close), the blue line is its path, and gates turn green as they're passed. The panel on the right shows the neural network deciding in real time: inputs → hidden neurons → steering and gas (orange = positive, blue = negative).*
 
 ## Results
 
