@@ -8,8 +8,8 @@ The project is **done** when every box below is ticked. Then we stop. No "one mo
 
 - [x] A brain trained by evolution completes a full lap on every training track (5 tracks).
 - [x] The same saved brain, with no extra training, completes a full lap on at least 2 of 3 test tracks it has never seen.
-- [ ] One command trains from scratch, and one command runs a saved brain on any track.
-- [ ] The README has: what it is, how to run it, a fitness-per-generation plot, a GIF of the car driving an unseen track, a results table (lap completion per track), and an honest "where it fails and why" section.
+- [x] One command trains from scratch, and one command runs a saved brain on any track.
+- [x] The README has: what it is, how to run it, a fitness-per-generation plot, a GIF of the car driving an unseen track, a results table (lap completion per track), and an honest "where it fails and why" section.
 - [ ] You can explain every part of the code without looking it up.
 
 The "2 of 3" number may change **once**, at M8, if results show it's unrealistic. The reason goes in the README, and then it doesn't move again.
@@ -150,8 +150,8 @@ Done when:
 **Learn:** running fair experiments, reporting results honestly.
 
 Done when:
-- [ ] 2 or 3 experiments are run, each changing one thing (for example the number of rays, the hidden layer size, or the mutation rate), and the results are recorded
-- [ ] the README is complete (see the end goal)
+- [x] 2 or 3 experiments are run, each changing one thing (for example the number of rays, the hidden layer size, or the mutation rate), and the results are recorded
+- [x] the README is complete (see the end goal)
 - [ ] every end goal box is ticked, and the project is done
 
 ## Parking lot (not now)

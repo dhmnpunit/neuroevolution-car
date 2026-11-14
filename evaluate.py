@@ -13,11 +13,6 @@ clock = pygame.time.Clock()
 
 # tracks 
 tracks = json.load(open("assets/tracks/tracks.json"))
-test_tracks = []
-
-for t in tracks:
-    if t["set"] == "test":
-        test_tracks.append(t)
 
 # car image
 car_image = pygame.image.load("assets/car_red.png").convert_alpha()
@@ -31,7 +26,7 @@ CHECKPOINT_RADIUS = 70
 with open("best_brain_v2.pkl", "rb") as file:
     brain = pickle.load(file)
 
-for t in test_tracks:
+for t in tracks:
 
     frame = 0
 
