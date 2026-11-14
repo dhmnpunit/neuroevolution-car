@@ -23,7 +23,7 @@ car_image = pygame.transform.scale(car_image, (50, 25))
 GENERATION_FRAMES = 3000
 CHECKPOINT_RADIUS = 70
 
-with open("best_brain_v2.pkl", "rb") as file:
+with open("models/best_brain_v2.pkl", "rb") as file:
     brain = pickle.load(file)
 
 for t in tracks:

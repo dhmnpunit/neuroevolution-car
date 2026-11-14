@@ -80,10 +80,10 @@ Each layer is one line of NumPy: `np.tanh(W @ inputs + b)`. Outputs are between 
 pip install -r requirements.txt
 
 python3 main.py       # train from scratch; press D to toggle drawing (off = much faster training)
-python3 evaluate.py   # run the saved brain (best_brain_v2.pkl) on all 25 tracks and print the results
+python3 evaluate.py   # run the saved brain (models/best_brain_v2.pkl) on all 25 tracks and print the results
 ```
 
-Training saves the best brain after every generation and plots best fitness per generation when you close the window.
+Training saves the best brain to `models/best_brain_v2.pkl` after every generation (so a new training run overwrites the included brain) and saves a best-fitness-per-generation chart to `docs/fitness_latest.png` when you close the window.
 
 ## What happened: four runs, three traps
 
@@ -169,4 +169,7 @@ This was a learning project. I started learning Python and ML from zero shortly 
 | `car.py` | the `Car` class: physics, rays, crash detection, checkpoints, progress |
 | `brain.py` | the neural network (`create_brain`, `think`) and evolution operators (`mutate`, `crossover`) |
 | `assets/tracks/` | 25 track images and `tracks.json` (start position, angle, checkpoints, train/test set) |
+| `assets/car_red.png` | the car sprite |
+| `models/best_brain_v2.pkl` | the final trained brain (the one in the results above) |
+| `docs/` | the demo GIF, the fitness charts for each run, and an overview of all tracks |
 | `roadmap.md` | the milestone plan and the end goal I set before starting |
