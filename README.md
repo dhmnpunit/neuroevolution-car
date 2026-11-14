@@ -177,4 +177,3 @@ This was a learning project. I started learning Python and ML from zero shortly 
 | `assets/car_red.png` | the car sprite |
 | `models/best_brain_v2.pkl` | the final trained brain (the one in the results above) |
 | `docs/` | the driving and brain animations, the fitness charts for each run, and an overview of all tracks |
-| `roadmap.md` | the milestone plan and the end goal I set before starting |
