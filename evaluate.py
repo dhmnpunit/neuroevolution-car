@@ -13,6 +13,11 @@ clock = pygame.time.Clock()
 
 # tracks 
 tracks = json.load(open("assets/tracks/tracks.json"))
+test_tracks = []
+
+for t in tracks:
+    if t["set"] == "test":
+        test_tracks.append(t)
 
 # car image
 car_image = pygame.image.load("assets/car_red.png").convert_alpha()
@@ -23,10 +28,10 @@ car_image = pygame.transform.scale(car_image, (50, 25))
 GENERATION_FRAMES = 3000
 CHECKPOINT_RADIUS = 70
 
-with open("best_brain_capped.pkl", "rb") as file:
+with open("best_brain_v2.pkl", "rb") as file:
     brain = pickle.load(file)
 
-for t in tracks:
+for t in test_tracks:
 
     frame = 0
 
@@ -37,9 +42,9 @@ for t in tracks:
 
     while car.alive and frame < GENERATION_FRAMES:
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
+        # for event in pygame.event.get():
+        #     if event.type == pygame.QUIT:
+        #         sys.exit()
 
         car.sense(track)
         car.drive()
@@ -51,8 +56,8 @@ for t in tracks:
         if car.alive and car.rotated_image is not None:
             screen.blit(car.rotated_image, car.rotated_rect)
 
-        pygame.display.flip()
-        clock.tick(60)
+        # pygame.display.flip()
+        # clock.tick(60)
         frame += 1
 
 
