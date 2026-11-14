@@ -22,6 +22,8 @@ class Car:
         self.angle = start_angle
         self.speed = 0
         self.brain = brain
+        self.completed = 0
+        self.speed_score = 0
         self.fitness = 0
         self.score = 0
         self.frames = 0
@@ -31,6 +33,7 @@ class Car:
         self.alive = True
         self.rotated_image = None
         self.rotated_rect = None
+        self.lap_frames = None
         self.frames_since_gate = 0
 
     def reset(self, start_x, start_y, start_angle):
@@ -48,6 +51,7 @@ class Car:
         self.distances = [1, 1, 1, 1, 1, 1, 1]
         self.rotated_image = None
         self.rotated_rect = None
+        self.lap_frames = None
         self.frames_since_gate = 0
 
     def drive(self):

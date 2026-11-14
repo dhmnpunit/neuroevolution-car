@@ -47,7 +47,7 @@ for i in range(50):
     cars.append(car)
 
 def get_fitness(car):
-    car_score = car.fitness
+    car_score = (car.completed, car.fitness, car.speed_score)
 
     return car_score
 
@@ -86,7 +86,11 @@ while running:
 
         # calculate fitness score
         for car in cars:
-            car.fitness += min(car.score / len(current_track["checkpoints"]), 1)
+            car.fitness += min(car.progress(current_track["checkpoints"]), 1)
+
+            if car.laps >= 1:
+                car.completed += 1
+                car.speed_score += 1 - car.lap_frames / GENERATION_FRAMES
 
         # if all tracks not finished yet -> start the new track and reset car positions
         if track_index < len(training_tracks) - 1:
@@ -104,7 +108,8 @@ while running:
             parents = sorted_cars[:10]      # find parents
 
             print("generation no: " +  str(generation))
-            print("best fitness: " + str(sorted_cars[0].fitness))
+            best = sorted_cars[0]
+            print("completed:", best.completed, "| progress:", round(best.fitness, 2), "| speed:", round(best.speed_score, 2))
 
             generation += 1     # increase generation
             frame = 0           # reset frame
