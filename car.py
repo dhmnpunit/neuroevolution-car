@@ -4,6 +4,7 @@ from brain import create_brain, think
 
 ACCELERATION = 0.06
 GRASS_COLOR = (60, 150, 60, 255)
+RAY_OFFSETS = [90, 60, 30, 0 , -30, -60, -90]
 RAY_LENGTH = 200
 BIG_STEP = 4                # ray stride: about 5x faster rays; can overshoot by a few px only when a ray grazes a wall edge
 NO_PROGRESS_LIMIT = 800     # frames without reaching a new gate before a car is stopped (catches circlers)
@@ -16,14 +17,17 @@ class Car:
 
         self.x = start_x
         self.y = start_y
+        self.start_x = start_x
+        self.start_y = start_y
         self.angle = start_angle
         self.speed = 0
         self.brain = brain
         self.fitness = 0
         self.score = 0
+        self.frames = 0
         self.next_checkpoint = 0
         self.laps = 0
-        self.distances = [1, 1, 1, 1, 1]
+        self.distances = [1, 1, 1, 1, 1, 1, 1]
         self.alive = True
         self.rotated_image = None
         self.rotated_rect = None
@@ -32,19 +36,22 @@ class Car:
     def reset(self, start_x, start_y, start_angle):
         self.x = start_x
         self.y = start_y
+        self.start_x = start_x
+        self.start_y = start_y
         self.angle = start_angle
         self.speed = 0
         self.score = 0
+        self.frames = 0
         self.laps = 0
         self.next_checkpoint = 0
         self.alive = True
-        self.distances = [1, 1, 1, 1, 1]
+        self.distances = [1, 1, 1, 1, 1, 1, 1]
         self.rotated_image = None
         self.rotated_rect = None
         self.frames_since_gate = 0
 
     def drive(self):
-        output = think(self.brain, self.distances)
+        output = think(self.brain, self.distances + [self.speed/ 3])
         steer = output[0]
         gas = output[1]
 
@@ -54,14 +61,15 @@ class Car:
         self.x += self.speed * math.cos(math.radians(self.angle))
         self.y -= self.speed * math.sin(math.radians(self.angle))
 
-        self.speed *= 0.98    
+        self.speed *= 0.98  
+        self.frames += 1  
 
     def sense(self, track):
 
         self.distances = []
         self.ray_ends = []
 
-        for offset in [90, 45, 0, -45, -90]:
+        for offset in RAY_OFFSETS:
 
             # the ray's direction never changes while we walk along it, so work it out once
             ray_angle = math.radians(self.angle + offset)
@@ -108,6 +116,7 @@ class Car:
             if self.next_checkpoint == len(checkpoints):
                 self.laps += 1
                 self.alive = False
+                self.lap_frames = self.frames
                 self.next_checkpoint = 0
 
             self.score += 1
@@ -116,4 +125,22 @@ class Car:
             self.frames_since_gate += 1
             if self.frames_since_gate > NO_PROGRESS_LIMIT:
                 self.alive = False
-    
+
+
+    def progress(self, checkpoints):
+        if self.laps >= 1:
+            return 1
+
+        next_gate = checkpoints[self.next_checkpoint]
+        if self.next_checkpoint == 0:
+            prev_gate = (self.start_x, self.start_y)
+        else:
+            prev_gate = checkpoints[self.next_checkpoint - 1]
+
+        gap = math.dist(prev_gate, next_gate)
+        left = math.dist((self.x, self.y), next_gate)
+
+        fraction = 1 - (left / gap)
+        fraction = max(0, min(fraction, 1))
+
+        return (self.score + fraction) / len(checkpoints)

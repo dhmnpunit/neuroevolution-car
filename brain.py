@@ -3,7 +3,7 @@ import numpy as np
 MUTATION_STRENGTH = 0.1
 
 def create_brain():
-    W1 = np.random.uniform(-1, 1, (8, 5))
+    W1 = np.random.uniform(-1, 1, (8, 8))
     b1 = np.random.uniform(-1, 1, 8)
 
     W2 = np.random.uniform(-1, 1, (2, 8))

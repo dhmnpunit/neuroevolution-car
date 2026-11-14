@@ -23,7 +23,7 @@ car_image = pygame.transform.scale(car_image, (50, 25))
 GENERATION_FRAMES = 3000
 CHECKPOINT_RADIUS = 70
 
-with open("best_brain_uncapped.pkl", "rb") as file:
+with open("best_brain_capped.pkl", "rb") as file:
     brain = pickle.load(file)
 
 for t in tracks:
@@ -64,7 +64,7 @@ for t in tracks:
 
     print("laps: " + str(car.laps))
 
-    if car.alive:
+    if car.laps >= 1:
         print("alive")
     else:
         print("dead")
